@@ -1,4 +1,4 @@
-package com.gc.api.member.repository;
+package com.gc.api.group.repository;
 
 import org.springframework.stereotype.Repository;
 
@@ -6,5 +6,5 @@ import lombok.RequiredArgsConstructor;
 
 @Repository
 @RequiredArgsConstructor
-public class MemberRepositoryImpl implements MemberRepositoryCustom {
+public class GroupRepositoryImpl implements GroupRepositoryCustom {
 }
