@@ -1,4 +1,4 @@
-package com.gc.api.apiPayload.status;
+package com.gc.api.payload.status;
 
 import org.springframework.http.HttpStatus;
 

@@ -1,4 +1,4 @@
-package com.gc.api.apiPayload.handler;
+package com.gc.api.payload.handler;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -20,9 +20,9 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
-import com.gc.api.apiPayload.ApiResponse;
-import com.gc.api.apiPayload.exception.GeneralException;
-import com.gc.api.apiPayload.status.ErrorStatus;
+import com.gc.api.payload.ApiResponse;
+import com.gc.api.payload.exception.GeneralException;
+import com.gc.api.payload.status.ErrorStatus;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolation;

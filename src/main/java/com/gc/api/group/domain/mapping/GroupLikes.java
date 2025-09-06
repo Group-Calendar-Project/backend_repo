@@ -1,4 +1,4 @@
-package com.gc.api.member.domain.mapping;
+package com.gc.api.group.domain.mapping;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -23,8 +23,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @DynamicInsert
 @DynamicUpdate
-@Table(name = "event_sharings")
-public class EventSharing extends BaseEntity {
+@Table(name = "group_likes")
+public class GroupLikes extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
