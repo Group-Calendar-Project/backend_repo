@@ -1,5 +1,5 @@
 package com.gc.api.common.enums;
 
-public enum MemberType {
+public enum MemberRole {
 	USER, ADMIN
 }
