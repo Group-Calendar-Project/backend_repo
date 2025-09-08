@@ -72,7 +72,7 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
 					(existingErrorMessage, newErrorMessage) -> existingErrorMessage + ", " + newErrorMessage);
 			});
 
-		return handleExceptionInternalArgs(ErrorStatus._BAD_REQUEST, errors);
+		return handleExceptionInternalArgs(ErrorStatus.METHOD_ARGUMENT_NOT_VALID, errors);
 	}
 
 	// HttpMessageNotReadableException 핸들링
@@ -108,7 +108,7 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
 		} else {
 			details = "요청 본문이 올바르지 않습니다.";
 		}
-		return handleExceptionInternal(ErrorStatus._BAD_REQUEST, details);
+		return handleExceptionInternal(ErrorStatus.TYPE_OR_FORMAT_NOT_VALID, details);
 	}
 
 	// 기타 에러 핸들링
