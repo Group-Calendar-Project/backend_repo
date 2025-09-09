@@ -1,11 +1,11 @@
-package com.gc.api.group.domain.mapping;
+package com.gc.api.promise.domain;
+
+import java.time.LocalDate;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import com.gc.api.common.base.BaseEntity;
-import com.gc.api.group.domain.Group;
-import com.gc.api.member.domain.Member;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,27 +29,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @DynamicInsert
 @DynamicUpdate
-@Table(name = "group_members")
-public class GroupMember extends BaseEntity {
+@Table(name = "promise_candidate_dates")
+public class PromiseCandidateDate extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@Column(nullable = false)
-	private String nickname;
-
-	@Column(nullable = false)
-	private String profileImage;
-
-	@Column(nullable = false)
-	private String description;
+	private LocalDate candidateDate;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "member_id")
-	private Member member;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "group_id")
-	private Group group;
+	@JoinColumn(name = "promise_id")
+	private Promise promise;
 }

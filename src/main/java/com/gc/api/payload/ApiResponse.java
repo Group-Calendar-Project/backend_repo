@@ -1,10 +1,10 @@
-package com.gc.api.apiPayload;
+package com.gc.api.payload;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.gc.api.apiPayload.status.ErrorStatus;
-import com.gc.api.apiPayload.status.SuccessStatus;
+import com.gc.api.payload.status.ErrorStatus;
+import com.gc.api.payload.status.SuccessStatus;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

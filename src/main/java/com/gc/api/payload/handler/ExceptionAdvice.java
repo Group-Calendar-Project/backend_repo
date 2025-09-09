@@ -1,4 +1,4 @@
-package com.gc.api.apiPayload.handler;
+package com.gc.api.payload.handler;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -20,9 +20,9 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
-import com.gc.api.apiPayload.ApiResponse;
-import com.gc.api.apiPayload.exception.GeneralException;
-import com.gc.api.apiPayload.status.ErrorStatus;
+import com.gc.api.payload.ApiResponse;
+import com.gc.api.payload.exception.GeneralException;
+import com.gc.api.payload.status.ErrorStatus;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolation;
@@ -72,7 +72,7 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
 					(existingErrorMessage, newErrorMessage) -> existingErrorMessage + ", " + newErrorMessage);
 			});
 
-		return handleExceptionInternalArgs(ErrorStatus._BAD_REQUEST, errors);
+		return handleExceptionInternalArgs(ErrorStatus.METHOD_ARGUMENT_NOT_VALID, errors);
 	}
 
 	// HttpMessageNotReadableException 핸들링
@@ -108,7 +108,7 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
 		} else {
 			details = "요청 본문이 올바르지 않습니다.";
 		}
-		return handleExceptionInternal(ErrorStatus._BAD_REQUEST, details);
+		return handleExceptionInternal(ErrorStatus.TYPE_OR_FORMAT_NOT_VALID, details);
 	}
 
 	// 기타 에러 핸들링

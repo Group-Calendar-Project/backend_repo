@@ -1,5 +1,5 @@
 package com.gc.api.common.enums;
 
-public enum Social {
+public enum SocialProvider {
 	KAKAO, APPLE
 }

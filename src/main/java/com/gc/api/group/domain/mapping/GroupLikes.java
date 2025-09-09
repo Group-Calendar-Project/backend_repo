@@ -7,7 +7,6 @@ import com.gc.api.common.base.BaseEntity;
 import com.gc.api.group.domain.Group;
 import com.gc.api.member.domain.Member;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -29,21 +28,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @DynamicInsert
 @DynamicUpdate
-@Table(name = "group_members")
-public class GroupMember extends BaseEntity {
+@Table(name = "group_likes")
+public class GroupLikes extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
-	@Column(nullable = false)
-	private String nickname;
-
-	@Column(nullable = false)
-	private String profileImage;
-
-	@Column(nullable = false)
-	private String description;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id")
