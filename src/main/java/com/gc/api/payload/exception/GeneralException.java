@@ -1,6 +1,6 @@
 package com.gc.api.payload.exception;
 
-import com.gc.api.payload.status.ErrorStatus;
+import com.gc.api.payload.status.ErrorReason;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,5 +9,5 @@ import lombok.Getter;
 @AllArgsConstructor
 public class GeneralException extends RuntimeException {
 
-	private final ErrorStatus errorStatus;
+	private final ErrorReason errorReason;
 }

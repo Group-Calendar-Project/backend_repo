@@ -3,7 +3,7 @@ package com.gc.api.common.util;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gc.api.payload.exception.GeneralException;
-import com.gc.api.payload.status.ErrorStatus;
+import com.gc.api.payload.status.CommonErrorStatus;
 
 public class JsonObjectMapper {
 
@@ -13,7 +13,7 @@ public class JsonObjectMapper {
 		try {
 			return mapper.writeValueAsString(obj);
 		} catch (JsonProcessingException e) {
-			throw new GeneralException(ErrorStatus.JSON_PARSE_ERROR);
+			throw new GeneralException(CommonErrorStatus.JSON_PARSE_ERROR);
 		}
 	}
 }
