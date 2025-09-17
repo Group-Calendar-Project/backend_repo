@@ -50,9 +50,9 @@ public class Member extends BaseEntity {
 	@Column(nullable = false)
 	private String nickname;
 
-	private boolean notification_enable;
+	private boolean notificationEnable;
 
-	private boolean monday_start;
+	private boolean mondayStart;
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
