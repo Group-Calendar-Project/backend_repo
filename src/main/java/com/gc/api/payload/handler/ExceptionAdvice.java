@@ -20,9 +20,10 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
-import com.gc.api.payload.ApiResponse;
+import com.gc.api.payload.CommonResponse;
 import com.gc.api.payload.exception.GeneralException;
-import com.gc.api.payload.status.ErrorStatus;
+import com.gc.api.payload.status.CommonErrorStatus;
+import com.gc.api.payload.status.ErrorReason;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolation;
@@ -34,15 +35,15 @@ import lombok.extern.slf4j.Slf4j;
 public class ExceptionAdvice extends ResponseEntityExceptionHandler {
 
 	// 에러 응답 생성 - String
-	private ResponseEntity<Object> handleExceptionInternal(ErrorStatus errorStatus, String message) {
-		ApiResponse<Object> body = ApiResponse.onFailure(errorStatus, message);
-		return ResponseEntity.status(errorStatus.getHttpStatus()).body(body);
+	private ResponseEntity<Object> handleExceptionInternal(ErrorReason errorReason, String message) {
+		CommonResponse<Object> body = CommonResponse.onFailure(errorReason, message);
+		return ResponseEntity.status(errorReason.getHttpStatus()).body(body);
 	}
 
 	// 에러 응답 생성 - Map<String, String>
-	private ResponseEntity<Object> handleExceptionInternalArgs(ErrorStatus errorStatus, Map<?, ?> map) {
-		ApiResponse<Object> body = ApiResponse.onFailure(errorStatus, map);
-		return ResponseEntity.status(errorStatus.getHttpStatus()).body(body);
+	private ResponseEntity<Object> handleExceptionInternalArgs(ErrorReason errorReason, Map<?, ?> map) {
+		CommonResponse<Object> body = CommonResponse.onFailure(errorReason, map);
+		return ResponseEntity.status(errorReason.getHttpStatus()).body(body);
 	}
 
 	// ConstraintViolationException 핸들링
@@ -54,7 +55,7 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
 			.findFirst()
 			.orElseThrow(() -> new RuntimeException("ConstraintViolationException 추출 도중 에러 발생"));
 
-		return handleExceptionInternal(ErrorStatus.valueOf(errorMessage), errorMessage);
+		return handleExceptionInternal(CommonErrorStatus.valueOf(errorMessage), errorMessage);
 	}
 
 	// MethodArgumentNotValidException 핸들링
@@ -72,7 +73,7 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
 					(existingErrorMessage, newErrorMessage) -> existingErrorMessage + ", " + newErrorMessage);
 			});
 
-		return handleExceptionInternalArgs(ErrorStatus.METHOD_ARGUMENT_NOT_VALID, errors);
+		return handleExceptionInternalArgs(CommonErrorStatus.METHOD_ARGUMENT_NOT_VALID, errors);
 	}
 
 	// HttpMessageNotReadableException 핸들링
@@ -108,22 +109,22 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
 		} else {
 			details = "요청 본문이 올바르지 않습니다.";
 		}
-		return handleExceptionInternal(ErrorStatus.TYPE_OR_FORMAT_NOT_VALID, details);
+		return handleExceptionInternal(CommonErrorStatus.TYPE_OR_FORMAT_NOT_VALID, details);
 	}
 
 	// 기타 에러 핸들링
 	// 따로 설정하지 않은 모든 예외
 	@ExceptionHandler
-	public ResponseEntity<Object> handleOtherException(Exception e, WebRequest request) {
-		e.printStackTrace();
+	public ResponseEntity<Object> handleOtherException(Exception e, HttpServletRequest request) {
+		log.error("Unhandled exception occurred on [{} {}]", request.getMethod(), request.getRequestURI(), e);
 
-		return handleExceptionInternal(ErrorStatus._INTERNAL_SERVER_ERROR, e.getClass() + ": " + e.getMessage());
+		return handleExceptionInternal(CommonErrorStatus._INTERNAL_SERVER_ERROR, null);
 	}
 
 	// GeneralException 핸들링
 	// throw new GeneralException(ErrorStatus.*)로 발생하는 모든 예외
 	@ExceptionHandler(value = GeneralException.class)
 	public ResponseEntity<Object> handleGeneralException(GeneralException e, HttpServletRequest request) {
-		return handleExceptionInternal(e.getErrorStatus(), e.getMessage());
+		return handleExceptionInternal(e.getErrorReason(), e.getMessage());
 	}
 }
