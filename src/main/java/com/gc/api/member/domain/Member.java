@@ -1,5 +1,6 @@
 package com.gc.api.member.domain;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,6 +68,8 @@ public class Member extends BaseEntity {
 
 	private boolean calendarLink;
 
+	private LocalDateTime inactiveDate;
+
 	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
 	@Builder.Default
 	private List<DeviceToken> deviceTokenList = new ArrayList<>();
@@ -86,4 +89,8 @@ public class Member extends BaseEntity {
 	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
 	@Builder.Default
 	private List<GroupMember> groupMemberList = new ArrayList<>();
+
+	public void inactivate() {
+		this.inactiveDate = LocalDateTime.now();
+	}
 }

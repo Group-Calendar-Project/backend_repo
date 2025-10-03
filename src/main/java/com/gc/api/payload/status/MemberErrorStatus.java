@@ -9,8 +9,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum MemberErrorStatus implements ErrorReason {
 
-	EMAIL_NOT_FOUND(HttpStatus.BAD_REQUEST, "MEMBER4001", "해당 이메일 사용자를 찾을 수 없습니다."),
-
+	EMAIL_NOT_FOUND(HttpStatus.BAD_REQUEST, "MEMBER4001", "해당 이메일 사용자가 존재하지 않습니다."),
+	
 	;
 
 	private final HttpStatus httpStatus;
