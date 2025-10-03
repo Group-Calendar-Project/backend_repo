@@ -28,7 +28,8 @@ public class SecurityConfig {
 
 	public static final String[] AUTH_WHITELIST = {
 		"/v3/api-docs/**", "/swagger-resources/**", "/swagger-ui.html", "/swagger-ui/**",
-		"/swagger/**", "/health", "/favicon.ico", "/images/**", "/css/**", "/js/**", "/webjars/**"
+		"/swagger/**", "/health", "/favicon.ico", "/images/**", "/css/**", "/js/**", "/webjars/**",
+		"/api/auth/reissue"
 	};
 	private final JwtAuthenticationFilter jwtAuthenticationFilter;
 	private final JwtExceptionHandlerFilter jwtExceptionHandlerFilter;

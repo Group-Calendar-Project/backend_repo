@@ -24,6 +24,7 @@ public class CustomUserDetails implements UserDetails {
 	private final SocialProvider socialProvider;
 	private final Collection<? extends GrantedAuthority> authorities;
 	private final boolean enabled;
+	private final String profileImage;
 
 	public static CustomUserDetails from(Member member) {
 		Collection<GrantedAuthority> authorities = Collections.singletonList(
@@ -37,7 +38,8 @@ public class CustomUserDetails implements UserDetails {
 			null,
 			member.getSocialProvider(),
 			authorities,
-			true
+			true,
+			member.getProfileImage()
 		);
 	}
 
