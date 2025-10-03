@@ -82,8 +82,9 @@ public class JwtProvider {
 		CustomUserDetails userDetails = (CustomUserDetails)authentication.getPrincipal();
 		String subject = userDetails.getUsername();
 		Long userId = userDetails.getId();
+		String socialProvider = userDetails.getSocialProvider().name();
 
-		return createToken(subject, userId, null, null, null, refreshTokenExpiredMS);
+		return createToken(subject, userId, null, socialProvider, null, refreshTokenExpiredMS);
 	}
 
 	public String resolveToken(HttpServletRequest request) {
@@ -91,6 +92,7 @@ public class JwtProvider {
 		if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
 			return bearerToken.substring(7);
 		}
+		log.debug("JWT Resolving Failed: {}", bearerToken);
 		return null;
 	}
 
