@@ -12,8 +12,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import com.gc.api.common.enums.SocialProvider;
 import com.gc.api.payload.exception.GeneralException;
 import com.gc.api.payload.status.JwtErrorStatus;
+import com.gc.api.security.jwt.enums.RedisTokenType;
 import com.gc.api.security.jwt.provider.JwtProvider;
-import com.gc.api.security.jwt.redis.LogoutAccessTokenManager;
+import com.gc.api.security.jwt.redis.TokenManager;
 import com.gc.api.security.jwt.token.CustomAuthenticationToken;
 
 import jakarta.servlet.FilterChain;
@@ -30,7 +31,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 	private final JwtProvider jwtProvider;
 	private final AuthenticationManager authenticationManager;
-	private final LogoutAccessTokenManager logoutAccessTokenManager;
+	private final TokenManager tokenManager;
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
@@ -44,7 +45,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 			String subject = jwtProvider.getSubject(token);
 			SocialProvider socialProvider = jwtProvider.getSocialProvider(token);
 
-			if (logoutAccessTokenManager.findLogoutAccessToken(subject)) {
+			if (tokenManager.findToken(RedisTokenType.LOGOUT_ACCESS_TOKEN, subject, token)) {
 				throw new GeneralException(JwtErrorStatus.LOGOUT_ACCESS_TOKEN);
 			}
 

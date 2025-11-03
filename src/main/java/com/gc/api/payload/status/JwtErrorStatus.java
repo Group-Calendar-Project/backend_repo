@@ -19,6 +19,7 @@ public enum JwtErrorStatus implements ErrorReason {
 	TOKEN_NOT_FOUND(HttpStatus.BAD_REQUEST, "TOKEN4008", "토큰이 없습니다."),
 	WRONG_SIGNATURE(HttpStatus.BAD_REQUEST, "TOKEN4009", "서명이 유효하지 않습니다."),
 	TOKEN_RESOLVE_FAIL(HttpStatus.BAD_REQUEST, "TOKEN4010", "헤더에서 토큰을 추출하지 못했습니다."),
+	LOGIN_UNKNOWN_ERROR(HttpStatus.UNAUTHORIZED, "TOKEN4011", "토큰 인증 중 알 수 없는 오류가 발생했습니다."),
 	;
 
 	private final HttpStatus httpStatus;
